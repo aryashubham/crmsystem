@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager
 from phonenumber_field.modelfields import PhoneNumberField
+from django.urls import reverse
 
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -52,12 +53,28 @@ class Lead(models.Model):
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
     age = models.IntegerField()
-    email = models.EmailField()
+    dis = models.TextField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
     phoned = models.BooleanField(default=False)
     source = models.CharField(choices=Source_Choice,max_length=250)
     agent = models.ForeignKey("Agent", models.SET_NULL, null=True)
 
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+    def get_absolute_url(self):
+        return reverse("detail", kwargs={"pk": self.pk})
+    
+    
+    @property
+    def name(self):
+        return f'{self.first_name} {self.last_name}'
+
 
 class Agent(models.Model):
     user = models.OneToOneField(MyUser, on_delete=models.CASCADE)
-    phone_number = PhoneNumberField()
+    phone_number = PhoneNumberField(null= True, blank=True)
+
+    def __str__(self):
+        return str(self.user.email)
+    

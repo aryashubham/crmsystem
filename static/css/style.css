@@ -1,0 +1,17 @@
+.body{
+    background-color: rgb(250, 207, 127);
+}
+
+.landingpage{
+    background-image:radial-gradient(circle, red, yellow, green);
+
+}
+.navbar{
+    background-color: brown;
+    color: white;
+}
+.detail{
+    background-color: brown;
+    margin-top: 20px;
+
+}

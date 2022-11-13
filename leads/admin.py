@@ -8,3 +8,7 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ['email']
 
 
+admin.site.register(Lead)
+admin.site.register(Agent)
+
+
